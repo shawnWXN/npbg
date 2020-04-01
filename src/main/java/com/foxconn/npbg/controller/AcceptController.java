@@ -3,8 +3,8 @@ package com.foxconn.npbg.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foxconn.npbg.bean.CustomResp;
+import com.foxconn.npbg.bean.RedisUtil;
 import com.foxconn.npbg.common.Function;
-import com.foxconn.npbg.pojo.MachineRecord;
 import com.foxconn.npbg.service.MachineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +23,9 @@ public class AcceptController {
     private CustomResp resp;
 
     @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
     private MachineRecordService machineRecordService;
 
     /**
@@ -36,7 +39,7 @@ public class AcceptController {
         // 响应体中的data
         Map<String, String> backDataMap = new HashMap<>();
         // 每个线体具体的数据
-        Map<LocalDateTime, List<String>> lineData = new HashMap<>();
+        Map<LocalDateTime, Set<String>> lineData = new HashMap<>();
 
         for (int i = 0; i < 3; i++) {
             JSONArray jsonArray = param.getJSONArray(line_name[i]);
@@ -53,21 +56,23 @@ public class AcceptController {
                     js.put("SECTION", section);
                     js.put("LINE_ID", lineId);
                     LocalDateTime dt = Function.strToDateTime(js.getString("LOG_TIME"), "yyyy-MM-dd HH:mm:ss");
+
+                    LocalDateTime dtKey = Function.getNextHour(dt);
                     // 临时list
-                    List<String> temp = new ArrayList<>();
-                    if (lineData.containsKey(dt)){
-                        temp = lineData.get(dt);
+                    Set<String> temp = new HashSet<>();
+                    if (lineData.containsKey(dtKey)){
+                        temp = lineData.get(dtKey);
                     }
                     temp.add(js.toJSONString());
-                    lineData.put(dt, temp);
+                    lineData.put(dtKey, temp);
                 }
 
                 // 开始存储该线数据
                 int storeNum = 0;
                 Set<LocalDateTime> timeKeys = lineData.keySet();
                 for(LocalDateTime dt: timeKeys){
-                    String key = line_name[i] + "_" + Function.getNextHour().format(DateTimeFormatter.ofPattern("yyyyMMddHH"));
-                    storeNum += machineRecordService.setAdd(key, lineData.get(dt));
+                    String key = line_name[i] + "_" + dt.format(DateTimeFormatter.ofPattern("yyyyMMddHH"));
+                    storeNum += redisUtil.setAdd(key, lineData.get(dt));
                 }
                 backDataMap.put(line_name[i], String.format("接收%d条，储存%d条，去重%d条", acceptNum, storeNum, acceptNum - storeNum));
                 lineData.clear();

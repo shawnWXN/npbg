@@ -8,16 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
 @Configuration
-public class MachineExceptionsConfig {
-
-    @Value("classpath:json/Exception.json")
-    private Resource exceptionJson;
+public class LineConfiguration {
+    @Value("classpath:json/LineConfig.json")
+    private Resource lineConfigJson;
 
     @Bean
-    public JSONObject getMachineException(){
+    public JSONObject lineConfig(){
         try {
-            String exceptionString = IOUtils.toString(exceptionJson.getInputStream(), "UTF-8");
-            return JSONObject.parseObject(exceptionString);
+            String configString = IOUtils.toString(lineConfigJson.getInputStream(), "UTF-8");
+            return JSONObject.parseObject(configString);
         }catch (Exception e){
             e.printStackTrace();
             return null;

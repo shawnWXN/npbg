@@ -1,0 +1,11 @@
+{
+    "PCB": [
+        "ICT_Automatic_Test",
+        "BST_Automatic_Test"
+    ],
+    "FST": [
+        "LED-LCD_Automatic_Test",
+        "DIAG_Automatic_Test",
+        "KEYPAD_Automatic_Test"
+    ]
+}

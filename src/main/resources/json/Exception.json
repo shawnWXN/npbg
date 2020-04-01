@@ -1,0 +1,24 @@
+{
+    "mfgiii_test_first_data": {
+        "machine_1": {
+      "D560": [
+        ["M80", "exception"],
+        ["M81", "exception"]
+      ],
+      "D561": [
+        ["M80", "exception"],
+        ["M81", "exception"]
+      ]
+    },
+    "machine_2": {
+      "D560": [
+        ["M80", "exception"],
+        ["M81", "exception"]
+      ],
+      "D561": [
+        ["M80", "exception"],
+        ["M81", "exception"]
+      ]
+    }
+  }
+}

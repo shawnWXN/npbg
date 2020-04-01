@@ -1,0 +1,47 @@
+# 此为注释– 将被Git 忽略
+# /结尾表示是目录，忽略目录和目录下的所有件
+# /开头表示根目录，否则是.gitignore的相对目录
+# !开头表示反选
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.DS_Store
+*.iml
+.idea/
+*.pyc
+*.pdb
+node_modules/
+*.class
+local.properties
+images/
+.vscode/
+**/target
+.project
+.classpath
+**/.settings
+**/.settings
+**/.factorypath
+**/.apt_generated
+**/.springBeans
+**/log
+*.log

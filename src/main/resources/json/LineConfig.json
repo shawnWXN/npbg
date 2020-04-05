@@ -1,11 +1,24 @@
+
 {
-    "PCB": [
-        "ICT_Automatic_Test",
-        "BST_Automatic_Test"
-    ],
-    "FST": [
-        "LED-LCD_Automatic_Test",
-        "DIAG_Automatic_Test",
-        "KEYPAD_Automatic_Test"
-    ]
+    "mfgiii_test_first_data": {
+        "ICT_Automatic_Test": ["PCB", "fxcapp666","source","1,2,3,4","slot","600"],
+        "BST_Automatic_Test": ["PCB", "fxcapp123","source","1,2,3,4","slot","600"],
+        "LED-LCD_Automatic_Test": ["FST", "fxcapp45","source","1,2,3,4","slot","600"],
+        "DIAG_Automatic_Test": ["FST", "fxcapp666,fxcapp561","source","1,2,3,4","slot","600"],
+        "KEYPAD_Automatic_Test": ["FST", "fxcapp666","source","1,2,3,4","slot","600"]
+    },
+    "mfgiii_test_second_data": {
+        "ICT_Automatic_Test": ["PCB", "fxcapp666","source","1,2,3,4","slot","600"],
+        "BST_Automatic_Test": ["PCB", "fxcapp123","source","1,2,3,4","slot","600"],
+        "LED-LCD_Automatic_Test": ["FST", "fxcapp45","source","1,2,3,4","slot","600"],
+        "DIAG_Automatic_Test": ["FST", "fxcapp666,fxcapp561","source","1,2,3,4","slot","600"],
+        "KEYPAD_Automatic_Test": ["FST", "fxcapp666","source","1,2,3,4","slot","600"]
+    },
+    "mfgiii_test_third_data": {
+        "ICT_Automatic_Test": ["PCB", "fxcapp666","source","1,2,3,4","slot","600"],
+        "BST_Automatic_Test": ["PCB", "fxcapp123","source","1,2,3,4","slot","600"],
+        "LED-LCD_Automatic_Test": ["FST", "fxcapp45","source","1,2,3,4","slot","600"],
+        "DIAG_Automatic_Test": ["FST", "fxcapp666,fxcapp561","source","1,2,3,4","slot","600"],
+        "KEYPAD_Automatic_Test": ["FST", "fxcapp666","source","1,2,3,4","slot","600"]
+    }
 }

@@ -1,32 +1,88 @@
 package com.foxconn.npbg.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.foxconn.npbg.bean.RedisUtil;
+import com.foxconn.npbg.common.Function;
 import com.foxconn.npbg.service.MachineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class MachineRecordServiceImpl implements MachineRecordService {
 
     @Autowired
-    private JSONObject lineConfig;
+    private Map<String, Map<String, List<Object>>> lineConfig;
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisUtil redisUtil;
 
     @Override
-    public String belongToSection(String machineName) {
-        Iterator<String> it = lineConfig.keySet().iterator();
-        while (it.hasNext()){
-            String key = it.next();
-            List<String> macList = (List<String>)lineConfig.get(key);
-            if (macList.contains(machineName)){
-                return key;
+    public Map<String, String> addMachineRecords(JSONObject acceptData) throws Exception{
+        // 响应体中的data
+        Map<String, String> backDataMap = new HashMap<>();
+        // 每个线体具体的数据(按小时划分)
+        Map<LocalDateTime, Set<String>> lineData = new HashMap<>();
+
+        int lineId = 1;
+        for (Map.Entry entry: lineConfig.entrySet()) {
+            String lineName = (String)entry.getKey();
+            JSONArray jsonArray = acceptData.getJSONArray(lineName);
+            if (jsonArray == null) {
+                backDataMap.put(lineName, "接收0条，储存0条，去重0条");
+            } else {
+                // 每个线体接收到的数据量
+                int acceptNum = jsonArray.size();
+                for (Object obj : jsonArray) {
+                    JSONObject js = (JSONObject) obj;
+                    String machineName = js.getString("MACHINE_NAME");
+                    String section = this.belongToSection(machineName);
+                    if (section == null){
+                        acceptNum --;//有一个工站不在配置表中，则收到的数据量减一
+                        continue;
+                    }
+                    js.put("SECTION", section);
+                    js.put("LINE_ID", lineId);
+                    LocalDateTime dt = Function.strToDateTime(js.getString("LOG_TIME"), "yyyy-MM-dd HH:mm:ss");
+
+                    LocalDateTime dtKey = Function.getNextHour(dt);
+                    // 临时list
+                    Set<String> temp = new HashSet<>();
+                    if (lineData.containsKey(dtKey))
+                        temp = lineData.get(dtKey);
+                    temp.add(js.toJSONString());
+                    lineData.put(dtKey, temp);
+                }
+
+                // 开始存储该线数据
+                int storeNum = 0;
+                Set<LocalDateTime> timeKeys = lineData.keySet();
+                for (LocalDateTime dt : timeKeys) {
+                    String key = lineName + "_" + dt.format(DateTimeFormatter.ofPattern("yyyyMMddHH"));
+                    storeNum += redisUtil.setAdd(key, lineData.get(dt));
+                }
+                backDataMap.put(lineName, String.format("接收%d条，储存%d条，去重%d条", acceptNum, storeNum, acceptNum - storeNum));
+                lineData.clear();
             }
+            lineId ++;
+        }
+        return backDataMap;
+    }
+
+
+    @Override
+    public String belongToSection(String machineName){
+        Set<String> lineNames = lineConfig.keySet();
+        for (String lineName: lineNames){
+            Map<String, List<Object>> lineDetailMap = lineConfig.get(lineName);
+            if (lineDetailMap.containsKey(machineName)){
+                return (String) lineDetailMap.get(machineName).get(0);
+            }
+            break; // 因为三条线配置都差不多，所以一遍没找到就break
         }
         return null;
     }

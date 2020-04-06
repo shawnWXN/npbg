@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 自定义的响应类
  */
-@Component
+@Component//相当于将本类交由spring管理
 @Data
 public class CustomResp {
 

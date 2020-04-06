@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Component
+@Component//相当于将本类交由spring管理
 public class RedisUtil {
 
     @Autowired
@@ -17,7 +17,7 @@ public class RedisUtil {
         String[] records = new String[list.size()];
         try {
             boolean keyExist = redisTemplate.hasKey(key);
-            int count = redisTemplate.opsForSet().add(key, list.toArray(records)).intValue();
+            int count = redisTemplate.opsForSet().add(key, list.toArray(records)).intValue();//不能用int强制转换，应该用long的intValue()方法
             // 如果一开始该key不存在，则设置7天有效期
             if (!keyExist)
                 redisTemplate.expire(key, 7, TimeUnit.DAYS);

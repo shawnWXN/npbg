@@ -64,6 +64,12 @@ public class Function {
 
     public static LocalDateTime getThisHour(){ return getThisHour(LocalDateTime.now()); }
 
+    /**
+     * 将字符串类型的日期值转为LocalDateTime类型
+     * @param dateTimeString
+     * @param pattern
+     * @return
+     */
     public static LocalDateTime strToDateTime(String dateTimeString, String pattern){
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern));
     }

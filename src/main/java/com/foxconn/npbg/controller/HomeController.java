@@ -22,7 +22,8 @@ public class HomeController {
 
     @PostMapping(value = "/machineState", produces = "text/html;charset=UTF-8")
     public String machineState(){
-        LocalDateTime nowDateTime = Function.getNextHour();
+        LocalDateTime nextHour = Function.getNextHour();
+        LocalDateTime thisHour = Function.getThisHour();
         resp.setSuccess(CustomResp.SUCCESS);
         resp.setMessage("");
         return JSONObject.toJSONString(resp);

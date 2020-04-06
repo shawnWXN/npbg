@@ -1,13 +1,12 @@
 server:
   servlet:
     context-path: /npbg
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/npbg?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: root
-    password: wang2702
+    password: Wang2702.
   redis:
     host: localhost
     port: 6379
@@ -20,3 +19,6 @@ spring:
         min-idle: 0
     lettuce:
       shutdown-timeout: 0
+logging:
+  level:
+    root: warn

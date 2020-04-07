@@ -45,6 +45,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!--sqlserver驱动 -->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4.0</version>
+		</dependency>
 		<!--spring整合redis依赖-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -93,6 +99,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- 基于springboot的快速集成多数据源的启动器 https://github.com/baomidou/dynamic-datasource-spring-boot-starter -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+			<version>2.5.6</version>
 		</dependency>
 	</dependencies>
 

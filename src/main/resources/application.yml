@@ -1,14 +1,15 @@
 server:
+  port: 8000
   servlet:
     context-path: /npbg
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/npbg?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
-    username: root
-    password: Wang2702.
+    url: jdbc:mysql://10.167.219.250:3306/npbg?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: npbg
+    password: Fox1230!
   redis:
-    host: localhost
+    host: 10.132.46.51
     port: 6379
     database: 0
     jedis:
@@ -21,4 +22,4 @@ spring:
       shutdown-timeout: 0
 logging:
   level:
-    root: warn
+    root: info

@@ -24,7 +24,7 @@ public class MachineRecordServiceImpl implements MachineRecordService {
     @Override
     public Map<String, String> addMachineRecords(JSONObject acceptData) throws Exception{
         // 响应体中的data
-        Map<String, String> backDataMap = new HashMap<>();
+        Map<String, String> backDataMap = new LinkedHashMap<>();
         // 每个线体具体的数据(按小时划分)
         Map<LocalDateTime, Set<String>> lineData = new HashMap<>();
 

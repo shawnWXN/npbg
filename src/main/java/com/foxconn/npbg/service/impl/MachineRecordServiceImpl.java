@@ -39,15 +39,15 @@ public class MachineRecordServiceImpl implements MachineRecordService {
                 int acceptNum = jsonArray.size();
                 for (Object obj : jsonArray) {
                     JSONObject js = (JSONObject) obj;
-                    String machineName = js.getString("MACHINE_NAME");
+                    String machineName = js.getString("machine_name");
                     String section = this.belongToSection(machineName);
                     if (section == null){
                         acceptNum --;//有一个工站不在配置表中，则收到的数据量减一
                         continue;
                     }
-                    js.put("SECTION", section);
-                    js.put("LINE_ID", lineId);
-                    LocalDateTime dt = Function.strToDateTime(js.getString("LOG_TIME"), "yyyy-MM-dd HH:mm:ss");
+                    js.put("section", section);
+                    js.put("line_id", lineId);
+                    LocalDateTime dt = Function.strToDateTime(js.getString("log_time"), "yyyy-MM-dd HH:mm:ss");
 
                     LocalDateTime dtKey = Function.getNextHour(dt);
                     // 临时list

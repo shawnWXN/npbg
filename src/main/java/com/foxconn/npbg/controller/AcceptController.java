@@ -45,16 +45,16 @@ public class AcceptController {
 
         Map<String, Object> respMap = new LinkedHashMap<>();
         Map<String, String> backDataMap = null;
-//        try {
-//            backDataMap = machineRecordService.addMachineRecords(param);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            respMap.put("status", "false");
-//        }
-        respMap.put("status", "true");
-        Long cost = Duration.between(startTime, LocalTime.now()).toMillis();
-        respMap.put("message", "It costs " + Duration.between(startTime, LocalTime.now()).toMillis() / 1000L + "s");
+        try {
+            backDataMap = machineRecordService.addMachineRecords(param);
+            respMap.put("status", "true");
+            respMap.put("message", "It costs " + (double)Duration.between(startTime, LocalTime.now()).toMillis() / 1000.0 + "s");
+        } catch (Exception e) {
+            e.printStackTrace();
+            respMap.put("status", "false");
+            respMap.put("message", e.getMessage());
+        }
+
         respMap.put("data", backDataMap);
         return respMap;
     }

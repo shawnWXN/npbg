@@ -37,7 +37,7 @@ public class HomeController {
 
     @PostMapping(value = "/getAll", produces = "text/html;charset=UTF-8")
     public String siLineState(){// 传过来的是form形式时，用@RequestParam
-        List<TestRecordVO> temp = testRecordService.getRecordsFromITMS(1, 1, LocalDateTime.parse("2020-04-08T12:00:01"), LocalDateTime.parse("2020-04-08T13:00:01"));
+        List<TestRecordVO> temp = testRecordService.getRecordsFromITMS(1, 1, LocalDateTime.parse("2020-03-01T12:00:00"), LocalDateTime.parse("2020-03-01T13:00:00"));
         for (Object obj: temp){
             System.out.println(obj);
         }

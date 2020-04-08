@@ -13,7 +13,7 @@ public class TestRecordSqlProvider {
         String lineName = Function.getNameBySeq(lineConfig, lineId);
         String stationName = Function.getNameBySeq(lineConfig, lineId, stationId);
         String startTimeStr = startTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).replace("T", " ");
-        String endTimeStr = endTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).replace("T", "");
+        String endTimeStr = endTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME).replace("T", " ");
         StringBuffer sql = new StringBuffer("SELECT '" + stationName +"' as 'station', controller, tnt, sn, pn, status," +
                 "1 as 'slot', 1 as 'seqInStation', '' as 'testDetail' FROM db_log_status.ictalert WHERE controller in (");
         String controllerStr = (String)lineConfig.get(lineName).get(stationName).get("hostname");

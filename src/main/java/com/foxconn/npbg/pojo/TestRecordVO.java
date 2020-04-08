@@ -11,7 +11,7 @@ public class TestRecordVO {
 
     private String hostname; // 主机(server)名
 
-    private LocalDateTime receiveTime; // 记录达到udts的时间
+    private LocalDateTime receiveTime; // 记录达到数据库的时间
 
     private String serialNumber; // sn
 

@@ -3,6 +3,7 @@ package com.foxconn.npbg.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.foxconn.npbg.bean.CustomResp;
 import com.foxconn.npbg.common.Function;
+import com.foxconn.npbg.pojo.TestRecordVO;
 import com.foxconn.npbg.service.TestRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -36,7 +37,7 @@ public class HomeController {
 
     @PostMapping(value = "/getAll", produces = "text/html;charset=UTF-8")
     public String siLineState(){// 传过来的是form形式时，用@RequestParam
-        List<Object> temp = testRecordService.showAll();
+        List<TestRecordVO> temp = testRecordService.getRecordsFromITMS(1, 1, LocalDateTime.parse("2020-04-08T12:00:01"), LocalDateTime.parse("2020-04-08T13:00:01"));
         for (Object obj: temp){
             System.out.println(obj);
         }

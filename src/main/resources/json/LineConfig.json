@@ -4,7 +4,7 @@
         "ICT": {
             "section": "PCB",
             "source": "udts",
-            "hostname": "fxcapp666",
+            "hostname": "MFG3ICT01,MFG3ICT02",
             "slot": "1,2,3,4",
             "slot_in_db": "slot",
             "cost_seconds": "600"
@@ -46,7 +46,7 @@
         "ICT": {
             "section": "PCB",
             "source": "udts",
-            "hostname": "fxcapp666",
+            "hostname": "MFG3ICT03,MFG3ICT04",
             "slot": "1,2,3,4",
             "slot_in_db": "slot",
             "cost_seconds": "600"
@@ -88,7 +88,7 @@
         "ICT": {
             "section": "PCB",
             "source": "udts",
-            "hostname": "fxcapp666",
+            "hostname": "MFG3ICT05,MFG3ICT19",
             "slot": "1,2,3,4",
             "slot_in_db": "slot",
             "cost_seconds": "600"

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 一些公用的方法
@@ -72,5 +70,32 @@ public class Function {
      */
     public static LocalDateTime strToDateTime(String dateTimeString, String pattern){
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static String getNameBySeq(Map<String, Map<String, Map<String, Object>>> lineConfig, int lineId){
+        int index = 1;
+        for (Map.Entry<String, Map<String, Map<String, Object>>> entry: lineConfig.entrySet()){
+            if (index == lineId)
+                return entry.getKey();
+            index ++;
+        }
+        return null;
+    }
+
+    public static String getNameBySeq(Map<String, Map<String, Map<String, Object>>> lineConfig, int lineId, int stationId){
+        int lineIndex = 1;
+        for (Map.Entry<String, Map<String, Map<String, Object>>> entry: lineConfig.entrySet()){
+            if (lineIndex == lineId){
+                Map<String, Map<String, Object>> lineDetail = entry.getValue();
+                int stationIndex = 1;
+                for (Map.Entry<String, Map<String, Object>> entry1: lineDetail.entrySet()){
+                    if (stationIndex == stationId)
+                        return entry1.getKey();
+                    stationIndex ++;
+                }
+            }
+            lineIndex++;
+        }
+        return null;
     }
 }

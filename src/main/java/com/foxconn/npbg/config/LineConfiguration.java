@@ -17,20 +17,21 @@ public class LineConfiguration {
     private Resource lineConfigJson;
 
     @Bean
-    public Map<String, Map<String, List<Object>>> lineConfig(){
+    public Map<String, Map<String, Map<String, Object>>> lineConfig(){
         try {
-            Map<String, Map<String, List<Object>>> result = new LinkedHashMap<>();
+            Map<String, Map<String, Map<String, Object>>> result = new LinkedHashMap<>();
             String configString = IOUtils.toString(lineConfigJson.getInputStream(), "UTF-8");
             JSONObject js = JSONObject.parseObject(configString, Feature.OrderedField);//Feature.OrderedField使代码按json文件定义的顺序解析
             for (Map.Entry entry: js.entrySet()){
                 String lineName = (String)entry.getKey();
                 JSONObject stationMap = (JSONObject)entry.getValue();
-                Map<String, List<Object>> temp = new LinkedHashMap<>();
+                Map<String, Map<String, Object>> lineDetail = new LinkedHashMap<>();
                 for (Map.Entry entry1: stationMap.entrySet()){
-                    JSONArray stationDetails = (JSONArray)entry1.getValue();
-                    temp.put((String)entry1.getKey(), JSONObject.parseArray(stationDetails.toJSONString()));
+                    String stationName = (String)entry1.getKey();
+                    Map<String, Object> itemMap = JSONObject.parseObject(entry1.getValue().toString(), LinkedHashMap.class);
+                    lineDetail.put(stationName, itemMap);
                 }
-                result.put(lineName, temp);
+                result.put(lineName, lineDetail);
             }
             return result;
         }catch (Exception e){

@@ -16,7 +16,7 @@ import java.util.*;
 public class MachineRecordServiceImpl implements MachineRecordService {
 
     @Autowired
-    private Map<String, Map<String, List<Object>>> lineConfig;
+    private Map<String, Map<String, Map<String, Object>>> lineConfig;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -78,9 +78,9 @@ public class MachineRecordServiceImpl implements MachineRecordService {
     public String belongToSection(String machineName){
         Set<String> lineNames = lineConfig.keySet();
         for (String lineName: lineNames){
-            Map<String, List<Object>> lineDetailMap = lineConfig.get(lineName);
+            Map<String, Map<String, Object>> lineDetailMap = lineConfig.get(lineName);
             if (lineDetailMap.containsKey(machineName)){
-                return (String) lineDetailMap.get(machineName).get(0);
+                return (String) lineDetailMap.get(machineName).get("section");
             }
             break; // 因为三条线配置都差不多，所以一遍没找到就break
         }

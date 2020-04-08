@@ -3,11 +3,13 @@ package com.foxconn.npbg.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.foxconn.npbg.bean.CustomResp;
 import com.foxconn.npbg.common.Function;
+import com.foxconn.npbg.service.TestRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @RestController()
@@ -16,6 +18,9 @@ public class HomeController {
 
     @Autowired
     private CustomResp resp;
+
+    @Autowired
+    private TestRecordService testRecordService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -29,11 +34,12 @@ public class HomeController {
         return JSONObject.toJSONString(resp);
     }
 
-    @PostMapping(value = "/GetSILineState/lineState", produces = "text/html;charset=UTF-8")
-    public String siLineState(@RequestParam Map<String, String> params){// 传过来的是form形式时，用@RequestParam
-        params.forEach((k, v) -> {
-            System.out.println("k = " + k + ",v = " + v);
-        });
+    @PostMapping(value = "/getAll", produces = "text/html;charset=UTF-8")
+    public String siLineState(){// 传过来的是form形式时，用@RequestParam
+        List<Object> temp = testRecordService.showAll();
+        for (Object obj: temp){
+            System.out.println(obj);
+        }
         resp.setSuccess(CustomResp.SUCCESS);
         resp.setMessage("");
         return JSONObject.toJSONString(resp);

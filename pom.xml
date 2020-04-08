@@ -107,6 +107,13 @@
 			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
 			<version>2.5.6</version>
 		</dependency>
+
+		<!-- spring boot 整合druid(不只是连接池，还支持监控) https://github.com/alibaba/druid-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.21</version>
+		</dependency>
 	</dependencies>
 
 	<build>

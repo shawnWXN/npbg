@@ -3,11 +3,35 @@ server:
   servlet:
     context-path: /npbg
 spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.167.219.250:3306/npbg?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
-    username: npbg
-    password: Fox1230!
+    druid:
+      stat-view-servlet:
+        login-username: admin
+        login-password: 12345
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          username: npbg
+          password: Fox1230!
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://10.167.219.250:3306/npbg?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useUnicode=true&useSSL=false
+          druid:
+            initialSize: 0
+            maxActive: 20
+            minIdle: 5
+            maxWait: 60000
+            filters: stat,wall
+        udts:
+          username: sa
+          password: Wstg168!!!
+          driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          url: jdbc:sqlserver://10.167.219.229:3000
+          druid:
+            initialSize: 0
+            filters: stat,wall
   redis:
     host: 10.132.46.51
     port: 6379

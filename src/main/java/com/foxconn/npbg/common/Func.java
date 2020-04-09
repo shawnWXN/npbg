@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * 一些公用的方法
  */
-public class Function {
+public class Func {
 
     /**
      * json字符串转java对象
@@ -72,9 +72,15 @@ public class Function {
         return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(pattern));
     }
 
-    public static String getNameBySeq(Map<String, Map<String, Map<String, Object>>> lineConfig, int lineId){
+    /**
+     * 根据lineId得到它的lineName
+     * @param lineConfig
+     * @param lineId
+     * @return
+     */
+    public static String getNameBySeq(LinkedHashMap<String, Object> lineConfig, int lineId){
         int index = 1;
-        for (Map.Entry<String, Map<String, Map<String, Object>>> entry: lineConfig.entrySet()){
+        for (Map.Entry<String, Object> entry: lineConfig.entrySet()){
             if (index == lineId)
                 return entry.getKey();
             index ++;
@@ -82,13 +88,20 @@ public class Function {
         return null;
     }
 
-    public static String getNameBySeq(Map<String, Map<String, Map<String, Object>>> lineConfig, int lineId, int stationId){
+    /**
+     * 根据lineId以及stationId得到它的stationName
+     * @param lineConfig
+     * @param lineId
+     * @param stationId
+     * @return
+     */
+    public static String getNameBySeq(LinkedHashMap<String, Object> lineConfig, int lineId, int stationId){
         int lineIndex = 1;
-        for (Map.Entry<String, Map<String, Map<String, Object>>> entry: lineConfig.entrySet()){
+        for (Map.Entry<String, Object> entry: lineConfig.entrySet()){
             if (lineIndex == lineId){
-                Map<String, Map<String, Object>> lineDetail = entry.getValue();
+                LinkedHashMap<String, Object> lineDetail = (LinkedHashMap)entry.getValue();
                 int stationIndex = 1;
-                for (Map.Entry<String, Map<String, Object>> entry1: lineDetail.entrySet()){
+                for (Map.Entry<String, Object> entry1: lineDetail.entrySet()){
                     if (stationIndex == stationId)
                         return entry1.getKey();
                     stationIndex ++;

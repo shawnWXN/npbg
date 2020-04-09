@@ -3,7 +3,7 @@ package com.foxconn.npbg.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.foxconn.npbg.bean.RedisUtil;
-import com.foxconn.npbg.common.Function;
+import com.foxconn.npbg.common.Func;
 import com.foxconn.npbg.service.MachineRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.*;
 public class MachineRecordServiceImpl implements MachineRecordService {
 
     @Autowired
-    private Map<String, Map<String, Map<String, Object>>> lineConfig;
+    private LinkedHashMap<String, Object> lineConfig;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -29,8 +29,8 @@ public class MachineRecordServiceImpl implements MachineRecordService {
         Map<LocalDateTime, Set<String>> lineData = new HashMap<>();
 
         int lineId = 1;
-        for (Map.Entry entry: lineConfig.entrySet()) {
-            String lineName = (String)entry.getKey();
+        for (Map.Entry<String, Object> entry: lineConfig.entrySet()) {
+            String lineName = entry.getKey();
             JSONArray jsonArray = acceptData.getJSONArray(lineName);
             if (jsonArray == null) {
                 backDataMap.put(lineName, "接收0条，储存0条，去重0条");
@@ -47,9 +47,9 @@ public class MachineRecordServiceImpl implements MachineRecordService {
                     }
                     js.put("section", section);
                     js.put("line_id", lineId);
-                    LocalDateTime dt = Function.strToDateTime(js.getString("log_time"), "yyyy-MM-dd HH:mm:ss");
+                    LocalDateTime dt = Func.strToDateTime(js.getString("log_time"), "yyyy-MM-dd HH:mm:ss");
 
-                    LocalDateTime dtKey = Function.getNextHour(dt);
+                    LocalDateTime dtKey = Func.getNextHour(dt);
                     // 临时list
                     Set<String> temp = new HashSet<>();
                     if (lineData.containsKey(dtKey))
@@ -78,9 +78,10 @@ public class MachineRecordServiceImpl implements MachineRecordService {
     public String belongToSection(String machineName){
         Set<String> lineNames = lineConfig.keySet();
         for (String lineName: lineNames){
-            Map<String, Map<String, Object>> lineDetailMap = lineConfig.get(lineName);
+            LinkedHashMap<String, Object> lineDetailMap = (LinkedHashMap)lineConfig.get(lineName);
             if (lineDetailMap.containsKey(machineName)){
-                return (String) lineDetailMap.get(machineName).get("section");
+                LinkedHashMap<String, Object> stationMap = (LinkedHashMap)lineConfig.get(lineName);
+                return (String) stationMap.get("section");
             }
             break; // 因为三条线配置都差不多，所以一遍没找到就break
         }

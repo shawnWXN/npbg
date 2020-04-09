@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 /**
- * 接收数据相关接口
+ * 接收SFC提供的机台数据相关接口
  */
 @RestController()
 public class AcceptController {

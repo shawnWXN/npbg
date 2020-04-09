@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foxconn.npbg.dao.TestRecordMapper">
+    <select id="getTestRecordsFromITMS" resultType="com.foxconn.npbg.pojo.TestRecordVO">
+        SELECT
+            #{stationName} as 'station',
+            controller as 'hostname',
+            tnt as 'receiveTime',
+            sn as 'serialNumber',
+            pn as 'partNumber',
+            status as 'result',
+            1 as 'slot',
+            1 as 'seqInStation',
+            '' as 'testDetail'
+        FROM db_log_status.ictalert
+        WHERE controller in (${controllersStr})
+        AND UNIX_TIMESTAMP(tnt) &gt; #{startStamp}
+        AND UNIX_TIMESTAMP(tnt) &lt;= #{endStamp}
+    </select>
+</mapper>

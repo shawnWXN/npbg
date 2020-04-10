@@ -2,6 +2,7 @@ package com.foxconn.npbg.service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MachineRecordService {
@@ -22,4 +23,11 @@ public interface MachineRecordService {
      * @throws Exception
      */
     public String belongToSection(String machineName);
+
+    /**
+     * 各机台的运行状况
+     * 1运行，2待机，3机故，4断网，5关机
+     * @return
+     */
+    public Map<String, Object> machineStatus();
 }

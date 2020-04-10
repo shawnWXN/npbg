@@ -3,11 +3,10 @@
     "mfgiii_test_first_data": {
         "ICT": {
             "section": "PCB",
-            "source": "udts",
+            "source": "itms_original",
             "hostname": "MFG3ICT01,MFG3ICT02",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
+            "slot": "",
+            "slot_in_db": ""
         },
         "BST": {
             "section": "PCB",
@@ -45,11 +44,10 @@
     "mfgiii_test_second_data": {
         "ICT": {
             "section": "PCB",
-            "source": "udts",
+            "source": "itms_original",
             "hostname": "MFG3ICT03,MFG3ICT04",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
+            "slot": "",
+            "slot_in_db": ""
         },
         "BST": {
             "section": "PCB",
@@ -87,11 +85,10 @@
     "mfgiii_test_third_data": {
         "ICT": {
             "section": "PCB",
-            "source": "udts",
+            "source": "itms_original",
             "hostname": "MFG3ICT05,MFG3ICT19",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
+            "slot": "",
+            "slot_in_db": ""
         },
         "BST": {
             "section": "PCB",

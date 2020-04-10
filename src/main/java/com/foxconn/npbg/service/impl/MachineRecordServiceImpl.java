@@ -80,11 +80,27 @@ public class MachineRecordServiceImpl implements MachineRecordService {
         for (String lineName: lineNames){
             LinkedHashMap<String, Object> lineDetailMap = (LinkedHashMap)lineConfig.get(lineName);
             if (lineDetailMap.containsKey(machineName)){
-                LinkedHashMap<String, Object> stationMap = (LinkedHashMap)lineConfig.get(lineName);
+                LinkedHashMap<String, Object> stationMap = (LinkedHashMap)lineDetailMap.get(machineName);
                 return (String) stationMap.get("section");
             }
             break; // 因为三条线配置都差不多，所以一遍没找到就break
         }
         return null;
     }
+
+    @Override
+    public Map<String, Object> machineStatus() {
+        Map<String, Object> rst = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> entry: lineConfig.entrySet()){
+            Map<String, Integer> temp = new LinkedHashMap<>();
+
+            Map<String, Object> mac = (LinkedHashMap)entry.getValue();
+            for (Map.Entry<String, Object> entry1: mac.entrySet()){
+                temp.put(entry1.getKey(), 1); //先让它都是运行
+            }
+            rst.put(entry.getKey(), temp);
+        }
+        return rst;
+    }
+
 }

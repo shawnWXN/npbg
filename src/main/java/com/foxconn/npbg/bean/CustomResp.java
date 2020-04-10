@@ -20,5 +20,5 @@ public class CustomResp {
 
     private String message;
 
-    private Map<String, String> data;
+    private Map<String, Object> data;
 }

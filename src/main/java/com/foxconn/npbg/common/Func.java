@@ -111,4 +111,24 @@ public class Func {
         }
         return null;
     }
+
+    /**
+     * 获得dt时间所在班别的开始时间和结束时间
+     * 其中白班从早8点到晚8点；晚班从晚8点到次日早8点
+     * @param dt
+     * @return
+     */
+    public static LocalDateTime[] startAndEndOfClass(LocalDateTime dt){
+        LocalDateTime eightHour = dt.withHour(8).withMinute(0).withSecond(0);
+        LocalDateTime twentyHour = dt.withHour(20).withMinute(0).withSecond(0);
+        // dt <= 当日8点，则返回昨日20点至当日8点
+        if (dt.isBefore(eightHour) || dt.isEqual(eightHour))
+            return new LocalDateTime[]{twentyHour.minusDays(1), eightHour};
+        // 当日早8点 < dt <= 当日20点，则返回当日8点至当日20点
+        else if (dt.isAfter(eightHour) && (dt.isBefore(twentyHour) || dt.isEqual(twentyHour)))
+            return new LocalDateTime[]{eightHour, twentyHour};
+        // 当日20点 < dt，则返回当日20点至次日8点
+        else
+            return new LocalDateTime[]{twentyHour, eightHour.plusDays(1)};
+    }
 }

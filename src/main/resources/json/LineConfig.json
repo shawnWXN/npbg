@@ -1,126 +1,23 @@
-
 {
     "mfgiii_test_first_data": {
-        "ICT": {
-            "section": "PCB",
-            "source": "itms_original",
-            "hostname": "MFG3ICT01,MFG3ICT02",
-            "slot": "",
-            "slot_in_db": ""
-        },
-        "BST": {
-            "section": "PCB",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "LED-LCD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "DIAG": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "KEYPAD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        }
+        "ICT": ["PCB", "itms_original", "MFG3ICT01,MFG3ICT02", "", ""],
+        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
     },
     "mfgiii_test_second_data": {
-        "ICT": {
-            "section": "PCB",
-            "source": "itms_original",
-            "hostname": "MFG3ICT03,MFG3ICT04",
-            "slot": "",
-            "slot_in_db": ""
-        },
-        "BST": {
-            "section": "PCB",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "LED-LCD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "DIAG": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "KEYPAD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        }
+        "ICT": ["PCB", "itms_original", "MFG3ICT03,MFG3ICT04", "", ""],
+        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
     },
     "mfgiii_test_third_data": {
-        "ICT": {
-            "section": "PCB",
-            "source": "itms_original",
-            "hostname": "MFG3ICT05,MFG3ICT19",
-            "slot": "",
-            "slot_in_db": ""
-        },
-        "BST": {
-            "section": "PCB",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "LED-LCD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "DIAG": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        },
-        "KEYPAD": {
-            "section": "FST",
-            "source": "udts",
-            "hostname": "fxcapp666",
-            "slot": "1,2,3,4",
-            "slot_in_db": "slot",
-            "cost_seconds": "600"
-        }
+        "ICT": ["PCB", "itms_original", "MFG3ICT05,MFG3ICT19", "", ""],
+        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
+        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
     }
 }

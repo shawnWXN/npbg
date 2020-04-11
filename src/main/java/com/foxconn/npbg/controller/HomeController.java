@@ -134,11 +134,25 @@ public class HomeController {
     )
     public String machineStatus(HttpServletRequest request){
         String requestUrl = request.getServletPath();
-        String targetSection = null;
-        if ("/GetLineState/lineState".equals(requestUrl))
-            targetSection = "PCB";
-        else
-            targetSection = "FST";
+        Map<String, Object> totalStatus = machineRecordService.machineStatus();
+
+        List<Object> pcbList = new ArrayList<>();
+        List<Object> fstList = new ArrayList<>();
+        int lineIndex = 1;
+        for (Map.Entry<String, Object> entry: totalStatus.entrySet()){
+            Map<String, Integer> lineStatus = (LinkedHashMap)entry.getValue();
+            for(Map.Entry<String, Integer> entry1: lineStatus.entrySet()){
+                if ("PCB".contains(entry1.getKey())){
+
+                }
+            }
+        }
+        if ("/GetLineState/lineState".equals(requestUrl)){
+            // PCB工段（其实也就是ICT 与 BST）的设备状态
+
+        }
+        else{
+        }
 
         return null;
     }

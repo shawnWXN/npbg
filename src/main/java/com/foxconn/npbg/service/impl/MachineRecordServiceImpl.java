@@ -96,7 +96,9 @@ public class MachineRecordServiceImpl implements MachineRecordService {
 
             Map<String, Object> mac = (LinkedHashMap)entry.getValue();
             for (Map.Entry<String, Object> entry1: mac.entrySet()){
-                temp.put(entry1.getKey(), 1); //先让它都是运行
+                Map<String, Object> item = (LinkedHashMap)entry1.getValue();
+                String section = (String) item.get("seciont");
+                temp.put(entry1.getKey()  + "_" + section, 1); //先让它都是运行
             }
             rst.put(entry.getKey(), temp);
         }

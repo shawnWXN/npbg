@@ -2,6 +2,7 @@ package com.foxconn.npbg.service;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,5 @@ public interface MachineRecordService {
      * 1运行，2待机，3机故，4断网，5关机
      * @return
      */
-    public Map<String, Object> machineStatus();
+    public Map<String, Map<String, Integer>> machineStatus();
 }

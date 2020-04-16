@@ -16,7 +16,7 @@ import java.util.*;
 public class MachineRecordServiceImpl implements MachineRecordService {
 
     @Autowired
-    private LinkedHashMap<String, Object> lineConfig;
+    private LinkedHashMap<String, LinkedHashMap<String, String>> lineConfig;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -29,7 +29,7 @@ public class MachineRecordServiceImpl implements MachineRecordService {
         Map<LocalDateTime, Set<String>> lineData = new HashMap<>();
 
         int lineId = 1;
-        for (Map.Entry<String, Object> entry: lineConfig.entrySet()) {
+        for (Map.Entry<String, LinkedHashMap<String, String>> entry: lineConfig.entrySet()) {
             String lineName = entry.getKey();
             JSONArray jsonArray = acceptData.getJSONArray(lineName);
             if (jsonArray == null) {
@@ -50,12 +50,15 @@ public class MachineRecordServiceImpl implements MachineRecordService {
                     LocalDateTime dt = Func.strToDateTime(js.getString("log_time"), "yyyy-MM-dd HH:mm:ss");
 
                     LocalDateTime dtKey = Func.getNextHour(dt);
-                    // 临时list
-                    Set<String> temp = new HashSet<>();
-                    if (lineData.containsKey(dtKey))
-                        temp = lineData.get(dtKey);
-                    temp.add(js.toJSONString());
-                    lineData.put(dtKey, temp);
+
+                    lineData.getOrDefault(dtKey, new HashSet<>()).add(js.toJSONString());
+//                    // 临时set
+//                    Set<String> temp = new HashSet<>();
+//                    lineData.getOrDefault()
+//                    if (lineData.containsKey(dtKey))
+//                        temp = lineData.get(dtKey).ad;
+//                    temp.add(js.toJSONString());
+//                    lineData.put(dtKey, temp);
                 }
 
                 // 开始存储该线数据
@@ -75,13 +78,12 @@ public class MachineRecordServiceImpl implements MachineRecordService {
 
 
     @Override
-    public String belongToSection(String machineName){
+    public String belongToSection(String stationName){
         Set<String> lineNames = lineConfig.keySet();
         for (String lineName: lineNames){
-            LinkedHashMap<String, Object> lineDetailMap = (LinkedHashMap)lineConfig.get(lineName);
-            if (lineDetailMap.containsKey(machineName)){
-                LinkedHashMap<String, Object> stationMap = (LinkedHashMap)lineDetailMap.get(machineName);
-                return (String) stationMap.get("section");
+            LinkedHashMap<String, String> lineMap = lineConfig.get(lineName);
+            if (lineMap.containsKey(stationName)){
+                return lineMap.get(stationName);
             }
             break; // 因为三条线配置都差不多，所以一遍没找到就break
         }
@@ -89,16 +91,14 @@ public class MachineRecordServiceImpl implements MachineRecordService {
     }
 
     @Override
-    public Map<String, Object> machineStatus() {
-        Map<String, Object> rst = new LinkedHashMap<>();
-        for (Map.Entry<String, Object> entry: lineConfig.entrySet()){
-            Map<String, Integer> temp = new LinkedHashMap<>();
+    public Map<String, Map<String, Integer>> machineStatus() {
+        Map<String, Map<String, Integer>> rst = new HashMap<>();
+        for (Map.Entry<String, LinkedHashMap<String, String>> entry: lineConfig.entrySet()){
+            Map<String, Integer> temp = new HashMap<>();
 
-            Map<String, Object> mac = (LinkedHashMap)entry.getValue();
-            for (Map.Entry<String, Object> entry1: mac.entrySet()){
-                Map<String, Object> item = (LinkedHashMap)entry1.getValue();
-                String section = (String) item.get("seciont");
-                temp.put(entry1.getKey()  + "_" + section, 1); //先让它都是运行
+            LinkedHashMap<String, String> lineMap = entry.getValue();
+            for (Map.Entry<String, String> entry1: lineMap.entrySet()){
+                temp.put(entry1.getValue() + "_" + entry1.getKey() , 1); //先让它都是运行
             }
             rst.put(entry.getKey(), temp);
         }

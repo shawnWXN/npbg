@@ -1,23 +1,23 @@
 {
     "mfgiii_test_first_data": {
-        "ICT": ["PCB", "itms_original", "MFG3ICT01,MFG3ICT02", "", ""],
-        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
+        "ICT": "PCB",
+        "BST": "PCB",
+        "LED-LCD": "FST",
+        "DIAG": "FST",
+        "KEYPAD": "FST"
     },
     "mfgiii_test_second_data": {
-        "ICT": ["PCB", "itms_original", "MFG3ICT03,MFG3ICT04", "", ""],
-        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
+        "ICT": "PCB",
+        "BST": "PCB",
+        "LED-LCD": "FST",
+        "DIAG": "FST",
+        "KEYPAD": "FST"
     },
     "mfgiii_test_third_data": {
-        "ICT": ["PCB", "itms_original", "MFG3ICT05,MFG3ICT19", "", ""],
-        "BST": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "LED-LCD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "DIAG": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"],
-        "KEYPAD": ["PCB", "udts", "fxcapp666", "1,2,3,4", "slot"]
+        "ICT": "PCB",
+        "BST": "PCB",
+        "LED-LCD": "FST",
+        "DIAG": "FST",
+        "KEYPAD": "FST"
     }
 }

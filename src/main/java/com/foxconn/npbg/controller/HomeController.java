@@ -101,10 +101,9 @@ public class HomeController {
             backData.put("off", 0);
             backData.put("shut", 0);
 
-            Map<String, Object> totalStatus = machineRecordService.machineStatus();
-            for (Map.Entry<String, Object> entry :totalStatus.entrySet()){
-                Map<String, Integer> lineStatus = (LinkedHashMap)entry.getValue();
-                for (Map.Entry<String, Integer> entry1 : lineStatus.entrySet()){
+            Map<String, Map<String, Integer>> totalStatus = machineRecordService.machineStatus();
+            for (Map.Entry<String, Map<String, Integer>> entry :totalStatus.entrySet()){
+                for (Map.Entry<String, Integer> entry1 :entry.getValue().entrySet()){
                     String key = null;
                     int statusCode = entry1.getValue();
                     if (statusCode == 1)
@@ -134,14 +133,13 @@ public class HomeController {
     )
     public String machineStatus(HttpServletRequest request){
         String requestUrl = request.getServletPath();
-        Map<String, Object> totalStatus = machineRecordService.machineStatus();
+        Map<String, Map<String, Integer>> totalStatus = machineRecordService.machineStatus();
 
         List<Object> pcbList = new ArrayList<>();
         List<Object> fstList = new ArrayList<>();
         int lineIndex = 1;
-        for (Map.Entry<String, Object> entry: totalStatus.entrySet()){
-            Map<String, Integer> lineStatus = (LinkedHashMap)entry.getValue();
-            for(Map.Entry<String, Integer> entry1: lineStatus.entrySet()){
+        for (Map.Entry<String, Map<String, Integer>> entry: totalStatus.entrySet()){
+            for(Map.Entry<String, Integer> entry1: entry.getValue().entrySet()){
                 if ("PCB".contains(entry1.getKey())){
 
                 }

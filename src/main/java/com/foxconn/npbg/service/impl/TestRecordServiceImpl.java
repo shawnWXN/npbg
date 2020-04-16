@@ -21,7 +21,7 @@ public class TestRecordServiceImpl implements TestRecordService {
     private TestRecordMapper testRecordMapper;
 
     @Autowired
-    private LinkedHashMap<String, Object> lineConfig;
+    private LinkedHashMap<String, LinkedHashMap<String, String>> lineConfig;
 
     @Override
     public List<TestRecordVO> getRecordsFromITMS(
@@ -34,27 +34,7 @@ public class TestRecordServiceImpl implements TestRecordService {
         Long endStamp = endTime.toEpochSecond(ZoneOffset.ofHours(8));
         String stationName = "";
         String hostnameStr = null;
-        StringBuffer controllersStr = new StringBuffer("");
-        int lineIndex = 1;
-        for (Map.Entry<String, Object> entry: lineConfig.entrySet()){
-            if (lineIndex == lineId){
-                LinkedHashMap<String, Object> lineDetail = (LinkedHashMap)entry.getValue();
-                int stationIndex = 1;
-                for (Map.Entry<String, Object> entry1: lineDetail.entrySet()){
-                    if (stationIndex == stationId){
-                        stationName = entry1.getKey();
-                        LinkedHashMap<String, Object>  stationDetail = (LinkedHashMap)entry1.getValue();
-                        hostnameStr = (String)stationDetail.get("hostname");
-                        break;
-                    }
-                    stationIndex ++;
-                }
-            }
-        }
-        if (hostnameStr != null){
-            controllersStr.append("'").append(hostnameStr.replace(",", "','")).append("'");
-        }
-        return testRecordMapper.getTestRecordsFromITMS(stationName, controllersStr.toString(), startStamp, endStamp);
+        return testRecordMapper.getTestRecordsFromITMS(stationName, "", startStamp, endStamp);
     }
 
 }

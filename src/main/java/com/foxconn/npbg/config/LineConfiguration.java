@@ -17,21 +17,17 @@ public class LineConfiguration {
     private Resource lineConfigJson;
 
     @Bean
-    public LinkedHashMap<String, Object> lineConfig(){
+    public LinkedHashMap<String, LinkedHashMap<String, String>> lineConfig(){
         try {
-            LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+            LinkedHashMap<String, LinkedHashMap<String, String>> result = new LinkedHashMap<>();
             String configString = IOUtils.toString(lineConfigJson.getInputStream(), "UTF-8");
             JSONObject js = JSONObject.parseObject(configString, Feature.OrderedField);//Feature.OrderedField使代码按json文件定义的顺序解析
             for (Map.Entry<String, Object> entry: js.entrySet()){
-                String lineName =entry.getKey();
-                JSONObject stationMap = (JSONObject)entry.getValue();
-                LinkedHashMap<String, Object> lineDetail = new LinkedHashMap<>();
-                for (Map.Entry<String, Object> entry1: stationMap.entrySet()){
-                    String stationName = entry1.getKey();
-                    LinkedHashMap<String, Object> itemMap = JSONObject.parseObject(entry1.getValue().toString(), LinkedHashMap.class);
-                    lineDetail.put(stationName, itemMap);
+                JSONObject lineJSON = (JSONObject)entry.getValue();
+                result.put(entry.getKey(), new LinkedHashMap<>());
+                for (Map.Entry<String, Object> entry1: lineJSON.entrySet()){
+                    result.get(entry.getKey()).put(entry1.getKey(), (String)entry1.getValue());
                 }
-                result.put(lineName, lineDetail);
             }
             return result;
         }catch (Exception e){
